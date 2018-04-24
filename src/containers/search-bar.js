@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import fetchWeather from '../actions/index';
+import {fetchWeather} from '../actions/index';
 
 class SearchBar extends Component{
 
@@ -10,6 +10,7 @@ class SearchBar extends Component{
         super(props);
         this.state = {term:''};
         this.onInputChange = this.onInputChange.bind(this);
+        this.onformSubmit = this.onformSubmit.bind(this);
     }
 
     onInputChange(event){
@@ -18,6 +19,8 @@ class SearchBar extends Component{
 
     onformSubmit(event){
         event.preventDefault();
+        this.props.fetchWeather(this.state.term);
+        this.setState({term:''});
     }
 
     render(){
@@ -38,6 +41,7 @@ class SearchBar extends Component{
 }
 
 function mapDispachToPromise(dispatch){
+    //debugger;
     return bindActionCreators({fetchWeather},dispatch);
 }
 
